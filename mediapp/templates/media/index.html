@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies and TV Shows Tracker </title>
+</head>
+<body>
+    <h1>Welcome to your tracking page</h1>
+    <p>From here you can track your favourite movies and tv shows.</p>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('media.movies') }}">My Movies</a></li>
+            <li><a href="{{ url_for('media.series') }}">My TV Shows</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

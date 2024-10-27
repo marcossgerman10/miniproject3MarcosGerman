@@ -1,11 +1,9 @@
 import functools
-
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-
-from mediapp.db import get_db
+from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -64,7 +62,8 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            # Redirect to media index after login
+            return redirect(url_for('media.index'))
 
         flash(error)
 
@@ -84,8 +83,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
-
+    return redirect(url_for('index'))  # You may also want to redirect to 'auth.login' or 'media.index'
 
 def login_required(view):
     @functools.wraps(view)
