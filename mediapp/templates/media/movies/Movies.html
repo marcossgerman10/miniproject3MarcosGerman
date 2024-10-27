@@ -1,0 +1,10 @@
+<h1>My Movies</h1>
+<a href="{{ url_for('media.add_movie') }}">Add New Movie</a>
+<ul>
+    {% for movie in movies %}
+        <li>
+            <strong>{{ movie['title'] }}</strong> - Rating: {{ movie['rating'] }}
+            <br>Review: {{ movie['review'] }}
+        </li>
+    {% endfor %}
+</ul>

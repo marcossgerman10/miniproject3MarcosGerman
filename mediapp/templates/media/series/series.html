@@ -1,0 +1,22 @@
+<h1>My TV Shows</h1>
+<a href="{{ url_for('media.add_series') }}">Add New TV Show</a>
+<ul>
+    {% for serie in series %}
+        <li>
+            <strong>{{ serie['title'] }}</strong>
+            - Rating: {{ serie['rating'] }}
+            <br>Review: {{ serie['review'] }}
+            <br>Season: {{ serie['season'] }}, <br>Episode: {{ serie['episode'] }}
+            <br>Status: {{ serie['status'] }}
+            <form action="{{ url_for('media.toggle_status', id=serie['id']) }}" method="post">
+                <button type="submit">
+                    {% if serie['status'] == 'watching' %}
+                        Set to watched
+                    {% else %}
+                        Set to still watching
+                    {% endif %}
+                </button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>

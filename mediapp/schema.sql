@@ -26,6 +26,7 @@ CREATE TABLE series (
   title TEXT NOT NULL,
   rating INTEGER CHECK(rating >= 1 AND rating <= 10),
   review TEXT,
+  season INTEGER DEFAULT 1,
   episode INTEGER DEFAULT 1,
   status TEXT CHECK(status IN ('watching', 'completed')) DEFAULT 'watching',
   added_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
