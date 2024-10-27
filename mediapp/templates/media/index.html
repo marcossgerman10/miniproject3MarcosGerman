@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Movies and TV Shows Tracker </title>
-</head>
-<body>
-    <h1>Welcome to your tracking page</h1>
-    <p>From here you can track your favourite movies and tv shows.</p>
+{% extends 'base.html' %}
 
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('media.movies') }}">My Movies</a></li>
-            <li><a href="{{ url_for('media.series') }}">My TV Shows</a></li>
-        </ul>
-    </nav>
-</body>
-</html>
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to My Media Tracker</h1>
+<p>Track the movies and series you’ve watched and manage your progress!</p>
+
+<!-- Show login/logout options specific to the index page -->
+<div>
+    {% if g.user %}
+        <p>Welcome, {{ g.user['username'] }}!</p>
+        <a href="{{ url_for('auth.logout') }}" class="button">Logout</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}" class="button">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="button">Register</a>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('media.movies') }}" class="button">Go to Movies</a>
+<a href="{{ url_for('media.series') }}" class="button">Go to Series</a>
+
+{% endblock %}

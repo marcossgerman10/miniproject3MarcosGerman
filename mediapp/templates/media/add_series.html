@@ -1,3 +1,9 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Add TV Show{% endblock %}
+
+{% block content %}
 <h1>Add TV Show</h1>
 <form action="{{ url_for('media.add_series') }}" method="post">
     <label for="title">Title:</label>
@@ -23,3 +29,23 @@
 
     <button type="submit">Add Series</button>
 </form>
+
+<!-- Modal Structure -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Success!</h2>
+        <p>The TV show has been added successfully!</p>
+    </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <script>
+      window.onload = function() {
+          openModal();
+      }
+    </script>
+  {% endif %}
+{% endwith %}
+{% endblock %}

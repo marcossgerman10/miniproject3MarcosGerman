@@ -33,26 +33,24 @@ def series():
     ).fetchall()
     return render_template('media/series.html', series=series)
 
-@bp.route('/add_series', methods=('GET', 'POST'))
+@bp.route('/add_movie', methods=('GET', 'POST'))
 @login_required
-def add_series():
+def add_movie():
     if request.method == 'POST':
         title = request.form['title']
         rating = request.form['rating']
         review = request.form.get('review')
-        season = request.form.get('season', 1)
-        episode = request.form.get('episode', 1)
-        status = request.form.get('status', 'watching')
         db = get_db()
         db.execute(
-            'INSERT INTO series (user_id, title, rating, review, season, episode, status)'
-            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
-            (g.user['id'], title, rating, review, season, episode, status)
+            'INSERT INTO movies (user_id, title, rating, review)'
+            ' VALUES (?, ?, ?, ?)',
+            (g.user['id'], title, rating, review)
         )
         db.commit()
-        return redirect(url_for('media.series'))
+        flash('The movie has been added successfully!', 'success')
+        return redirect(url_for('media.movies'))
 
-    return render_template('media/add_series.html')
+    return render_template('media/add_movie.html')
 
 @bp.route('/add_series', methods=('GET', 'POST'))
 @login_required
@@ -70,6 +68,7 @@ def add_series():
             (g.user['id'], title, rating, review, episode, status)
         )
         db.commit()
+        flash('The TV show has been added successfully!', 'success')
         return redirect(url_for('media.series'))
 
     return render_template('media/add_series.html')

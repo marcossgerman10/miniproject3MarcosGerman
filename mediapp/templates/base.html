@@ -1,24 +1,84 @@
-<!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>Mediapp</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['firstname'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Media Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function openModal() {
+            document.getElementById('successModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        // Close the modal when the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('successModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            {% if request.endpoint == 'index' %}
+                {% if g.user %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% endif %}
+            {% elif request.endpoint == 'media.movies' %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('media.series') }}">Series</a></li>
+                {% if g.user %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                {% endif %}
+            {% elif request.endpoint == 'media.series' %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('media.movies') }}">Movies</a></li>
+                {% if g.user %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="content">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+
+        <!-- Modal Structure -->
+        <div id="successModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Success!</h2>
+                <p>The operation was successful!</p>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <script>
+                    window.onload = function() {
+                        openModal();
+                    }
+                </script>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Additional Content -->
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

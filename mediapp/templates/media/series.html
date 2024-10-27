@@ -1,4 +1,9 @@
-<h1>My TV Shows</h1>
+{% extends 'base.html' %}
+
+{% block title %}Series{% endblock %}
+
+{% block content %}
+<h1>My Series</h1>
 <a href="{{ url_for('media.add_series') }}">Add New TV Show</a>
 <ul>
     {% for serie in series %}
@@ -20,3 +25,5 @@
         </li>
     {% endfor %}
 </ul>
+
+{% endblock %}
