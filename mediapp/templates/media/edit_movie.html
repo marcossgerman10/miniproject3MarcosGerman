@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Movie{% endblock %}
+
+{% block content %}
+<h1>Edit Movie</h1>
+<form action="{{ url_for('media.edit_movie', id=movie.id) }}" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="{{ movie.title }}" required>
+
+    <label for="rating">Rating (1-10):</label>
+    <input type="number" id="rating" name="rating" min="1" max="10" value="{{ movie.rating }}" required>
+
+    <label for="review">Review:</label>
+    <textarea id="review" name="review">{{ movie.review }}</textarea>
+
+    <button type="submit">Update Movie</button>
+</form>
+{% endblock %}

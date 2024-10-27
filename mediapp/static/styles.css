@@ -204,3 +204,19 @@ nav ul li a:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+.add-button {
+    display: inline-block; /* Make the link behave like a button */
+    padding: 10px 15px;   /* Add some padding */
+    margin: 10px 0;       /* Add some margin */
+    background-color: green; /* Green background for the button */
+    color: white;          /* White text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px;   /* Round the corners */
+    font-size: 16px;       /* Set font size */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.add-button:hover {
+    background-color: darkgreen; /* Darker green on hover */
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Series{% endblock %}
+
+{% block content %}
+<h1>Edit Series</h1>
+<form action="{{ url_for('media.edit_series', id=serie.id) }}" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="{{ serie.title }}" required>
+
+    <label for="rating">Rating (1-10):</label>
+    <input type="number" id="rating" name="rating" min="1" max="10" value="{{ serie.rating }}" required>
+
+    <label for="review">Review:</label>
+    <textarea id="review" name="review">{{ serie.review }}</textarea>
+
+    <label for="season">Current Season:</label>
+    <input type="number" id="season" name="season" min="1" value="{{ serie.season }}">
+
+    <label for="episode">Current Episode:</label>
+    <input type="number" id="episode" name="episode" min="1" value="{{ serie.episode }}">
+
+    <label for="status">Status:</label>
+    <select id="status" name="status">
+        <option value="watching" {% if serie.status == 'watching' %}selected{% endif %}>Watching</option>
+        <option value="completed" {% if serie.status == 'completed' %}selected{% endif %}>Completed</option>
+    </select>
+
+    <button type="submit">Update Series</button>
+</form>
+{% endblock %}

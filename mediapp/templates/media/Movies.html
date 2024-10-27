@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Movies{% endblock %}
+{% block title %}My Movies{% endblock %}
 
 {% block content %}
 <h1>My Movies</h1>
-<a href="{{ url_for('media.add_movie') }}">Add New Movie</a>
-<ul>
-    {% for movie in movies %}
-        <li>
-            <strong>{{ movie['title'] }}</strong> - Rating: {{ movie['rating'] }}
-            <br>Review: {{ movie['review'] }}
-        </li>
-    {% endfor %}
-</ul>
+<a href="{{ url_for('media.add_movie') }}" class="add-button">Add New Movie</a>
+{% for movie in movies %}
+    <div class="movie">
+        <h2>{{ movie['title'] }}</h2>
+        <p>Rating: {{ movie['rating'] }}</p>
+        <p>Review: {{ movie['review'] }}</p>
+
+        <form action="{{ url_for('media.delete_movie', id=movie['id']) }}" method="post" style="display:inline;">
+            <button type="submit" class="delete-button">Delete</button>
+        </form>
+
+        <form action="{{ url_for('media.edit_movie', id=movie['id']) }}" method="get" style="display:inline;">
+            <button type="submit" class="edit-button">Edit</button>
+        </form>
+    </div>
+{% endfor %}
 
 {% endblock %}
