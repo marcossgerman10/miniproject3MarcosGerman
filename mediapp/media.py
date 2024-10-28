@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Marcos German
+# Mini Project 3
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
