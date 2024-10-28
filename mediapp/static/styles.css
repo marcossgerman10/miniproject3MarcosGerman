@@ -220,3 +220,81 @@ nav ul li a:hover {
 .add-button:hover {
     background-color: darkgreen; /* Darker green on hover */
 }
+/* Container for each series item */
+.series-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Series title styling */
+.series-item h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+/* Styling for labels */
+.series-item p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Container for action buttons */
+.actions {
+    margin-top: 10px;
+}
+
+/* Styling for buttons */
+.delete-button, .edit-button, .watch-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+/* Specific button colors */
+.delete-button {
+    background-color: #e74c3c; /* Red */
+}
+
+.edit-button {
+    background-color: #3498db; /* Blue */
+}
+
+.watch-button {
+    background-color: #2ecc71; /* Green */
+}
+
+/* Hover effects for buttons */
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.edit-button:hover {
+    background-color: #2980b9;
+}
+
+.watch-button:hover {
+    background-color: #27ae60;
+}
+
+/* Styling for Add New TV Show button */
+.add-button {
+    background-color: #4CAF50;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-button:hover {
+    background-color: #45a049;
+}

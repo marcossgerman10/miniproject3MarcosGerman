@@ -4,42 +4,44 @@
 
 {% block content %}
 <h1>My Series</h1>
+
+<!-- Add New TV Show Button -->
 <a href="{{ url_for('media.add_series') }}" class="add-button">Add New TV Show</a>
-<ul>
+
+<!-- Series Items Container -->
+<div class="series-container">
     {% for serie in series %}
-        <li>
-            <strong>{{ serie['title'] }}</strong>
-            - Rating: {{ serie['rating'] }}
-            <br>Review: {{ serie['review'] }}
-            <br>Season: {{ serie['season'] }}, <br>Episode: {{ serie['episode'] }}
-            <br>Status: {{ serie['status'] }}
+    <div class="series-item">
+        <h3>{{ serie['title'] }}</h3>
+        <p><strong>Rating:</strong> {{ serie['rating'] }}</p>
+        <p><strong>Review:</strong> {{ serie['review'] }}</p>
+
+        <!-- Only show Season and Episode if the status is not 'watched' -->
+        {% if serie['status'] == 'watching' %}
+           <p><strong>Season:</strong> {{ serie['season'] }}, <strong>Episode:</strong> {{ serie['episode'] }}</p>
+       {% endif %}
+
+       <p><strong>Status:</strong> {{ serie['status'] }}</p>
+
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <form action="{{ url_for('media.delete_series', id=serie['id']) }}" method="post" style="display:inline;">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+            <a href="{{ url_for('media.edit_series', id=serie['id']) }}" class="edit-button">Edit</a>
             <form action="{{ url_for('media.toggle_status', id=serie['id']) }}" method="post">
-                <button type="submit">
+                <button type="submit" class="watch-button">
                     {% if serie['status'] == 'watching' %}
-                        Set to watched
+                        Set status to completed
                     {% else %}
-                        Set to still watching
+                        Set status to watching
                     {% endif %}
                 </button>
             </form>
-        </li>
-    {% endfor %}
-</ul>
-{% for serie in series %}
-    <div class="serie">
-        <h2>{{ serie.title }}</h2>
-        <p>Rating: {{ serie.rating }}</p>
-        <p>Review: {{ serie.review }}</p>
-        <p>Season: {{ serie.season }} Episode: {{ serie.episode }}</p>
-        <p>Status: {{ serie.status }}</p>
-
-        <form action="{{ url_for('media.delete_series', id=serie.id) }}" method="post" style="display:inline;">
-            <button type="submit" class="delete-button">Delete</button>
-        </form>
-        <form action="{{ url_for('media.edit_series', id=serie['id']) }}" method="get" style="display:inline;">
-            <button type="submit" class="edit-button">Edit</button>
-        </form>
+        </div>
     </div>
-{% endfor %}
+    {% endfor %}
+</div>
 
 {% endblock %}
